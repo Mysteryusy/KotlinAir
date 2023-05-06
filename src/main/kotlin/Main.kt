@@ -327,6 +327,7 @@ fun customFlightAnalysis(){
                         }
                     }
                     groupFlightAnalysis(filename)
+                    println("The information have been saved to output/$filename.air")
                 }
             } else {
                 // File
@@ -341,7 +342,9 @@ fun customFlightAnalysis(){
                     flight.addInfo(lineSplit[0].toInt(), lineSplit[1], lineSplit[2], latitude, longitude, lineSplit[5].toDouble(), lineSplit[6].toDouble(), lineSplit[7].toDouble())
                 }
                 flights.add(flight)
-                flightAnalysis(flight, flight.timestamp[0].toString() + "_" + flight.callsign[0])
+                val filename = flight.timestamp[0].toString() + "_" + flight.callsign[0]
+                flightAnalysis(flight, filename)
+                println("The information have been saved to output/$filename.air")
             }
         }
     }
@@ -422,8 +425,6 @@ fun flightAnalysis(flight: Flight, fileName: String = ""){
 
     println("---")
     outputFile.appendText("---\n")
-
-    println("The information have been saved to output/$fileName.air")
 }
 
 fun groupFlightAnalysis(fileName: String){
@@ -441,7 +442,7 @@ fun groupFlightAnalysis(fileName: String){
     println("Shortest flight in group by Distance: ${shortestFlightDistance.utc[0]} (${shortestFlightDistance.callsign[0]}) - ${String.format("%.2f", shortestFlightDistance.totalDistance())} km")
     outputFile.appendText("Shortest flight in group by Distance: ${shortestFlightDistance.utc[0]} (${shortestFlightDistance.callsign[0]}) - ${String.format("%.2f", shortestFlightDistance.totalDistance())} km\n")
 
-    val averageSpeedShortestFlight = shortestFlightDistance.totalDistance() / shortestFlightDistance.totalTime()
+    val averageSpeedShortestFlight = shortestFlightDistance.totalDistance() / (shortestFlightDistance.totalTime() / 60.0)
     println("Average flight speed of shortest flight: ${String.format("%.2f", averageSpeedShortestFlight)} km/h")
     outputFile.appendText("Average flight speed of shortest flight: ${String.format("%.2f", averageSpeedShortestFlight)} km/h\n")
 
@@ -453,12 +454,12 @@ fun groupFlightAnalysis(fileName: String){
     println("Longest flight in group by Distance: ${longestFlightDistance.utc[0]} (${longestFlightDistance.callsign[0]}) - ${String.format("%.2f", longestFlightDistance.totalDistance())} km")
     outputFile.appendText("Longest flight in group by Distance: ${longestFlightDistance.utc[0]} (${longestFlightDistance.callsign[0]}) - ${String.format("%.2f", longestFlightDistance.totalDistance())} km\n")
 
-    val averageSpeedLongestFlight = longestFlightDistance.totalDistance() / longestFlightDistance.totalTime()
+    val averageSpeedLongestFlight = longestFlightDistance.totalDistance() / (longestFlightDistance.totalTime() / 60.0)
     println("Average flight speed of longest flight: ${String.format("%.2f", averageSpeedLongestFlight)} km/h")
     outputFile.appendText("Average flight speed of longest flight: ${String.format("%.2f", averageSpeedLongestFlight)} km/h\n")
 
     val averageDistance = flights.map { it.totalDistance() }.average()
-    val averageTime = flights.map { it.totalTime() }.average()
+    val averageTime = flights.map { it.totalTime()/60.0 }.average()
     val averageSpeed = averageDistance / averageTime
     println("Average flight distance of group: ${String.format("%.2f", averageDistance)} km")
     outputFile.appendText("Average flight distance of group: ${String.format("%.2f", averageDistance)} km\n")
@@ -468,5 +469,4 @@ fun groupFlightAnalysis(fileName: String){
     outputFile.appendText("Average flight speed of group: ${String.format("%.2f", averageSpeed)} km/h\n")
 
     println("---")
-    println("The information have been saved to output/$fileName.air")
 }
