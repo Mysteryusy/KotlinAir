@@ -444,4 +444,24 @@ fun groupFlightAnalysis(fileName: String){
     val shortestFlightDistance = flights.minBy { it.totalDistance() }
     println("Shortest flight in group by Distance: ${shortestFlightDistance.utc[0]} (${shortestFlightDistance.callsign[0]}) - ${String.format("%.2f", shortestFlightDistance.totalDistance())} km")
     outputFile.appendText("Shortest flight in group by Distance: ${shortestFlightDistance.utc[0]} (${shortestFlightDistance.callsign[0]}) - ${String.format("%.2f", shortestFlightDistance.totalDistance())} km\n")
+
+    // Average flight speed of shortest flight
+    val averageSpeedShortestFlight = shortestFlightDistance.totalDistance() / shortestFlightDistance.totalTime()
+    println("Average flight speed of shortest flight: ${String.format("%.2f", averageSpeedShortestFlight)} km/h")
+    outputFile.appendText("Average flight speed of shortest flight: ${String.format("%.2f", averageSpeedShortestFlight)} km/h\n")
+
+    // Longest flight in group by time
+    val longestFlightTime = flights.maxBy { it.totalTime() }
+    println("Longest flight in group by Time: ${longestFlightTime.utc[0]} (${longestFlightTime.callsign[0]}) - ${String.format("%.2f", longestFlightTime.totalTime())} minutes")
+    outputFile.appendText("Longest flight in group by Time: ${longestFlightTime.utc[0]} (${longestFlightTime.callsign[0]}) - ${String.format("%.2f", longestFlightTime.totalTime())} minutes\n")
+
+    // Longest flight in group by distance
+    val longestFlightDistance = flights.maxBy { it.totalDistance() }
+    println("Longest flight in group by Distance: ${longestFlightDistance.utc[0]} (${longestFlightDistance.callsign[0]}) - ${String.format("%.2f", longestFlightDistance.totalDistance())} km")
+    outputFile.appendText("Longest flight in group by Distance: ${longestFlightDistance.utc[0]} (${longestFlightDistance.callsign[0]}) - ${String.format("%.2f", longestFlightDistance.totalDistance())} km\n")
+
+    // Average flight speed of longest flight
+    val averageSpeedLongestFlight = longestFlightDistance.totalDistance() / longestFlightDistance.totalTime()
+    println("Average flight speed of longest flight: ${String.format("%.2f", averageSpeedLongestFlight)} km/h")
+    outputFile.appendText("Average flight speed of longest flight: ${String.format("%.2f", averageSpeedLongestFlight)} km/h\n")
 }
