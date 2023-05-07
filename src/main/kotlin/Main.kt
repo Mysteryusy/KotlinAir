@@ -293,7 +293,7 @@ fun analyseData() {
         val nearestAirport = distances.toList().minBy { it.first }.second
 
         val distance = distances.toList().minBy { it.first }.first * 111.2
-        println("Nearest airport: ${nearestAirport.name} (${nearestAirport.icaoIdent}) - $distance km")
+        println("Nearest airport: ${nearestAirport.name} (${nearestAirport.icaoIdent}) - ${String.format("%.2f", distance)} km")
     }
 
     println()

@@ -29,7 +29,7 @@ A program megnyitásnál feldob egy Disclaimer-t ami az adatok felhasználási j
 Enter a location (latitude, longitude or leave empty to skip): **47.4461953, 19.2189375**
 
 **Output:**  
-Nearest airport: Budapest Liszt Ferenc International Airport (LHBP) - 5.031361037394369 km
+Nearest airport: Budapest Liszt Ferenc International Airport (LHBP) - 5,03 km
 
 ### Fájl megadása (A fájl a program mellé mellékelve van, de a program futtatásakor is megadható)
 
