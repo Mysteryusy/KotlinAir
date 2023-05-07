@@ -1,0 +1,121 @@
+--- Flight 2022-05-05T04:15:36Z (WZZ8BF) ---
+Total time: 70,45 minutes
+Total distance: 799,92 km
+Departure airport: Budapest Liszt Ferenc International Airport (LHBP)
+Takeoff runway: 31R
+Arrival airport: Berlin Brandenburg Airport (EDDB)
+Landing runway: 07L
+---
+--- Flight 2022-07-29T04:09:34Z (WZZ8KZ) ---
+Total time: 70,02 minutes
+Total distance: 790,70 km
+Departure airport: Budapest Liszt Ferenc International Airport (LHBP)
+Takeoff runway: 31R
+Arrival airport: Berlin Brandenburg Airport (EDDB)
+Landing runway: 07L
+---
+--- Flight 2022-09-30T04:23:23Z (WZZ8KZ) ---
+Total time: 60,60 minutes
+Total distance: 718,90 km
+Departure airport: Budapest Liszt Ferenc International Airport (LHBP)
+Takeoff runway: 31R
+Arrival airport: Berlin Brandenburg Airport (EDDB)
+Landing runway: 07L
+---
+--- Flight 2022-11-10T11:20:06Z (WZZ81RZ) ---
+Total time: 71,13 minutes
+Total distance: 732,30 km
+Departure airport: Budapest Liszt Ferenc International Airport (LHBP)
+Takeoff runway: 31L
+Arrival airport: Berlin Brandenburg Airport (EDDB)
+Landing runway: 07L
+---
+--- Flight 2022-11-23T11:10:51Z (WZZ81RZ) ---
+Total time: 64,18 minutes
+Total distance: 759,54 km
+Departure airport: Budapest Liszt Ferenc International Airport (LHBP)
+Takeoff runway: 31R
+Arrival airport: Berlin Brandenburg Airport (EDDB)
+Landing runway: 07L
+---
+--- Flight 2022-12-23T11:30:37Z (WZZ81RZ) ---
+Total time: 75,33 minutes
+Total distance: 761,01 km
+Departure airport: Budapest Liszt Ferenc International Airport (LHBP)
+Takeoff runway: 31R
+Arrival airport: Berlin Brandenburg Airport (EDDB)
+Landing runway: 07L
+---
+--- Flight 2023-04-06T10:21:20Z (WZZ51) ---
+Total time: 62,33 minutes
+Total distance: 738,05 km
+Departure airport: Budapest Liszt Ferenc International Airport (LHBP)
+Takeoff runway: 31R
+Arrival airport: Berlin Brandenburg Airport (EDDB)
+Landing runway: 07L
+---
+--- Flight 2022-05-06T06:24:26Z (WZZ5VX) ---
+Total time: 64,62 minutes
+Total distance: 767,79 km
+Departure airport: Berlin Brandenburg Airport (EDDB)
+Takeoff runway: 25R
+Arrival airport: Budapest Liszt Ferenc International Airport (LHBP)
+Landing runway: 13L
+---
+--- Flight 2022-09-04T06:13:41Z (WZZ4WK) ---
+Total time: 66,63 minutes
+Total distance: 789,57 km
+Departure airport: Berlin Brandenburg Airport (EDDB)
+Takeoff runway: 25R
+Arrival airport: Budapest Liszt Ferenc International Airport (LHBP)
+Landing runway: 13L
+---
+--- Flight 2022-10-03T06:26:37Z (WZZ4WK) ---
+Total time: 62,97 minutes
+Total distance: 789,44 km
+Departure airport: Berlin Brandenburg Airport (EDDB)
+Takeoff runway: 25R
+Arrival airport: Budapest Liszt Ferenc International Airport (LHBP)
+Landing runway: 13L
+---
+--- Flight 2022-11-14T13:19:15Z (WZZ338) ---
+Total time: 72,13 minutes
+Total distance: 768,34 km
+Departure airport: Berlin Brandenburg Airport (EDDB)
+Takeoff runway: 25R
+Arrival airport: Budapest Liszt Ferenc International Airport (LHBP)
+Landing runway: 13R
+---
+--- Flight 2022-11-28T13:11:36Z (WZZ338) ---
+Total time: 68,27 minutes
+Total distance: 738,21 km
+Departure airport: Berlin Brandenburg Airport (EDDB)
+Takeoff runway: 25R
+Arrival airport: Budapest Liszt Ferenc International Airport (LHBP)
+Landing runway: 13R
+---
+--- Flight 2023-02-27T15:19:20Z (WZZ338) ---
+Total time: 68,15 minutes
+Total distance: 779,59 km
+Departure airport: Berlin Brandenburg Airport (EDDB)
+Takeoff runway: 25R
+Arrival airport: Budapest Liszt Ferenc International Airport (LHBP)
+Landing runway: 13L
+---
+--- Flight 2023-04-17T13:36:45Z (WZZ1828) ---
+Total time: 68,70 minutes
+Total distance: 784,06 km
+Departure airport: Berlin Brandenburg Airport (EDDB)
+Takeoff runway: 25R
+Arrival airport: Budapest Liszt Ferenc International Airport (LHBP)
+Landing runway: 13L
+---
+Shortest flight in group by Time: 2022-09-30T04:23:23Z (WZZ8KZ) - 60,60 minutes
+Shortest flight in group by Distance: 2022-09-30T04:23:23Z (WZZ8KZ) - 718,90 km
+Average flight speed of shortest flight: 11,86 km/h
+Longest flight in group by Time: 2022-12-23T11:30:37Z (WZZ81RZ) - 75,33 minutes
+Longest flight in group by Distance: 2022-05-05T04:15:36Z (WZZ8BF) - 799,92 km
+Average flight speed of longest flight: 11,35 km/h
+Average flight distance of group: 765,53 km
+Average flight time of group: 67,54 minutes
+Average flight speed of group: 11,33 km/h
