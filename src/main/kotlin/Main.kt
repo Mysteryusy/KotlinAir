@@ -459,8 +459,8 @@ fun groupFlightAnalysis(fileName: String){
     outputFile.appendText("Average flight speed of longest flight: ${String.format("%.2f", averageSpeedLongestFlight)} km/h\n")
 
     val averageDistance = flights.map { it.totalDistance() }.average()
-    val averageTime = flights.map { it.totalTime()/60.0 }.average()
-    val averageSpeed = averageDistance / averageTime
+    val averageTime = flights.map { it.totalTime() }.average()
+    val averageSpeed = averageDistance / (averageTime / 60.0)
     println("Average flight distance of group: ${String.format("%.2f", averageDistance)} km")
     outputFile.appendText("Average flight distance of group: ${String.format("%.2f", averageDistance)} km\n")
     println("Average flight time of group: ${String.format("%.2f", averageTime)} minutes")

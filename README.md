@@ -17,3 +17,25 @@ Egy adott repülésről információkat a https://www.flightradar24.com/ webolda
 
 ## Kinézet/Output
 A program alapvetően konzol ablakban fut le, itt vár a felhasználótól input és ír ki bármit, ami történik. Ezen kívül létrehoz futásidőben .csv fájlokat, amik az alap fájlok optimalizált verziói. Nem teljesen biztos még, de lehetséges, hogy több járat összehasonlításakor eredményként létre fog hozni egy .air fájlt amiben meg tudja tekinteni a felhasználó utólag is a megfigyeléseket.
+
+## Specifikáció óta történt változások
+
+A program megnyitásnál feldob egy Disclaimer-t ami az adatok felhasználási jogairól tájékoztatja a felhasználót. Ezt a felhasználó elolvashatja és egy ENTER megnyomásával továbbléphet. A jelenleg implementált funkciók: A top 3 repülőtér a legtöbb kifutópályával, top 3 repülőtér a legtöbb becsült utasforgalommal, top 3 ország a legtöbb repülőtérrel, leghosszabb és legrövidebb kifutópálya. A felhasználó ezután beírhat egy koordináta párt ami alapján a program megmondja a legközelebbi repülőteret és annak távolságát. Ezután megadhat a felhasználó vagy 1 fájlt vagy egy mappát ami tartalmazza a repülők útvonaláról adatokat tartalmazó fájlokat. Ezekről utána egyesével megfigyeléseket tesz a program mint például berepült táv, eltelt idő, felszállás helye (repülőtér, kifutópálya), leszállás helye. Amennyiben csoportot (mappa) ad meg a felhasználó a program meghatározza az adott csoportban a legrövidebb repülés távolságát és idejét, az átlag repülési sebességet. Ugyanezeket a leghosszabbra is meghatározza majd pedig egy átlagot is csinál az összes adatból. Mindkét esetnél (fájl/mappa) a program létrehoz ".air" végződésű fájlokat amiket a felhasználó később át tud nézni.
+
+## Példa inputok
+
+### Koordináta alapú keresés (Az adat a Liszt Ferenc Nemzetközi Repülőtér mellett található Cargodomb koordinátája)
+**Input:**  
+Enter a location (latitude, longitude or leave empty to skip): **47.4461953, 19.2189375**
+
+**Output:**  
+Nearest airport: Budapest Liszt Ferenc International Airport (LHBP) - 5.031361037394369 km
+
+### Fájl megadása (A fájl a program mellé mellékelve van, de a program futtatásakor is megadható)
+
+**Input:**  
+Enter a file or directory containing flight data: **data/flights/wizzair/berbud/W62315_2bbce126.csv**
+
+*vagy*  
+
+Enter a file or directory containing flight data: **data/flights/wizzair/berbud**
