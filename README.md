@@ -3,7 +3,9 @@
 The program makes various observations based on several data files containing airport and runway data. In addition, the program optimizes these data files on first load and saves them separately without rows that do not contain useful data. In addition, after loading the data, a separate .csv file or folder can be specified, which can contain several such flight data files. These files contain the information for a particular route of a flight. From this data, the program can determine where the aircraft flew from and to, how long it took, which runway it used, what its maximum speed was, and, if you specify several of these trips that flew the same route, it can determine which time flew the distance "better" (whether it be speed or fuel efficiency.)  
 
 ## Running
-The program can be launched by compiling it in an IDE like IntelliJ. The program displays upon running a disclaimer which can be dismissed by pressing the <kbd>ENTER</kbd> key. The program then displays the following:
+The program can be launched by compiling it from source in an IDE like IntelliJ or downloading the .jar from the releases tab and then running it via `java -jar KotlinAir.jar`.  
+
+The program displays upon running a disclaimer which can be dismissed by pressing the <kbd>ENTER</kbd> key. The program then displays the following:
 - top 3 airports with the most runways
 - top 3 airports with the most estimated passenger traffic
 - top 3 countries with the most airports
@@ -41,6 +43,3 @@ countries.csv: Contains pairings of countries' codes to their names.
 traffic.csv: Contains traffic data for airports (https://ansperformance.eu/data/).
 
 Information on a specific flight can be obtained from https://www.flightradar24.com/. Here you can download in two formats, which are kml/csv, but only csv is used by this program. The structure of the csv is as follows: UNIX timestamp, UTC time, aircraft callsign, position, altitude, speed, direction.
-
-## WIP
-- .exe and release
