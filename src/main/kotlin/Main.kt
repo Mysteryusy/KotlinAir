@@ -24,6 +24,8 @@ fun main() {
     loadData()
     analyseData()
     customFlightAnalysis()
+
+    readlnOrNull()
 }
 
 fun printDisclaimerOnStart() {
