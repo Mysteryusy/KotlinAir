@@ -8,6 +8,16 @@ var traffic = mutableMapOf<String, MutableMap<Int, Int>>()
 var flights = ArrayList<Flight>()
 var countries = mutableMapOf<String, String>()
 
+const val airportFileName = "data/airports.csv"
+const val runwayFileName = "data/runways.csv"
+const val trafficFileName = "data/traffic.csv"
+
+const val countryFileName = "data/countries.csv"
+
+const val airportOptimizedFileName = "data/airports_optimized.csv"
+const val runwayOptimizedFileName = "data/runways_optimized.csv"
+const val trafficOptimizedFileName = "data/traffic_optimized.csv"
+
 fun main() {
     printDisclaimerOnStart()
     optimizeDataFiles()
@@ -38,90 +48,102 @@ fun printDisclaimerOnStart() {
 }
 
 fun optimizeDataFiles() {
-    if(!File("data/airports_optimized.csv").exists()) {
-        // Read data/airports.csv, check if the type is "large_airport" or "medium_airport" or "small_Airport", and write to data/airports_optimized.csv
-
-        if(!File("data/airports.csv").exists()) {
+    if(!File(airportOptimizedFileName).exists()) {
+        if(!File(airportFileName).exists()) {
             throw Exception("data/airports.csv does not exist.")
         }
-        else{
-            val airportsFile = File("data/airports.csv")
-            val airportsFileLines = airportsFile.readLines().drop(1)
-
-            val airportsOptimizedFile = File("data/airports_optimized.csv")
-
-            for(line in airportsFileLines) {
-                val lineSplit = line.replace("\"", "").split(",")
-
-                if((lineSplit[2] == "large_airport" || lineSplit[2] == "medium_airport" || lineSplit[2] == "small_airport") && lineSplit[6] != "") {
-                    airportsOptimizedFile.appendText(line.replace("\"", "") + "\n")
-                }
-            }
+        else {
+            optimizeAirportFile()
         }
     }
 
-    if(!File("data/runways_optimized.csv").exists()) {
-        if(!File("data/runways.csv").exists()) {
+    if(!File(runwayOptimizedFileName).exists()) {
+        if(!File(runwayFileName).exists()) {
             throw Exception("data/runways.csv does not exist.")
         }
-        else{
-            // Read data/runways.csv, check if the location data is not empty, and write to data/runways_optimized.csv
-
-            val runwaysFile = File("data/runways.csv")
-            val runwaysFileLines = runwaysFile.readLines().drop(1)
-
-            val runwaysOptimizedFile = File("data/runways_optimized.csv")
-
-            for(line in runwaysFileLines) {
-                val lineSplit = line.replace("\"", "").split(",")
-
-                if(lineSplit[3] != "" && lineSplit[4] != "" && lineSplit[9] != "" && lineSplit[10] != "" && lineSplit[11] != "" && lineSplit[15] != "" && lineSplit[16] != "" && lineSplit[17] != "") {
-                    runwaysOptimizedFile.appendText(line.replace("\"", "") + "\n")
-                }
-            }
+        else {
+            optimizeRunwayFile()
         }
     }
 
-    if(!File("data/traffic_optimized.csv").exists()) {
-        if(!File("data/traffic.csv").exists()) {
+    if(!File(trafficOptimizedFileName).exists()) {
+        if(!File(trafficFileName).exists()) {
             throw Exception("data/traffic.csv does not exist.")
         }
         else{
-            // Read data/traffic.csv, sum the traffic for each airport by year, and write to data/traffic_optimized.csv
-            // Data: YEAR;MONTH_NUM;MONTH_MON;FLT_DATE;APT_ICAO;APT_NAME;STATE_NAME;FLT_DEP_1;FLT_ARR_1;FLT_TOT_1;FLT_DEP_IFR_2;FLT_ARR_IFR_2;FLT_TOT_IFR_2;Pivot Label
+            optimizeTrafficFile()
+        }
+    }
+}
 
-            val trafficFile = File("data/traffic.csv")
-            val trafficFileLines = trafficFile.readLines().drop(1) // To drop the header
+fun optimizeAirportFile() {
+    // Read data/airports.csv, check if the type is "large_airport" or "medium_airport" or "small_Airport", and write to data/airports_optimized.csv
 
-            val trafficOptimizedFile = File("data/traffic_optimized.csv")
+    val airportsFile = File(airportFileName)
+    val airportsFileLines = airportsFile.readLines().drop(1)
 
-            val airportTrafficByYear = mutableMapOf<String, MutableMap<Int, Int>>()
+    val airportsOptimizedFile = File(airportOptimizedFileName)
 
-            for(line in trafficFileLines){
-                val values = line.split(";")
-                val year = values[0].toInt()
-                val airportICAO = values[4]
-                val traffic = values[7].toInt()
-                val yearTraffic = airportTrafficByYear.getOrDefault(airportICAO, mutableMapOf())
-                yearTraffic[year] = yearTraffic.getOrDefault(year, 0) + traffic
-                airportTrafficByYear[airportICAO] = yearTraffic
-            }
+    for (line in airportsFileLines) {
+        val lineSplit = line.replace("\"", "").split(",")
 
-            trafficOptimizedFile.bufferedWriter().use { out ->
-                out.write("ICAO;YEAR;TRAFFIC\n")
-                for((airport, trafficByYear) in airportTrafficByYear){
-                    for((year, traffic) in trafficByYear){
-                        out.write("$airport;$year;$traffic\n")
-                    }
-                }
+        if ((lineSplit[2] == "large_airport" || lineSplit[2] == "medium_airport" || lineSplit[2] == "small_airport") && lineSplit[6] != "") {
+            airportsOptimizedFile.appendText(line.replace("\"", "") + "\n")
+        }
+    }
+}
+
+fun optimizeRunwayFile() {
+    // Read data/runways.csv, check if the location data is not empty, and write to data/runways_optimized.csv
+
+    val runwaysFile = File(runwayFileName)
+    val runwaysFileLines = runwaysFile.readLines().drop(1)
+
+    val runwaysOptimizedFile = File(runwayOptimizedFileName)
+
+    for (line in runwaysFileLines) {
+        val lineSplit = line.replace("\"", "").split(",")
+
+        if (lineSplit[3] != "" && lineSplit[4] != "" && lineSplit[9] != "" && lineSplit[10] != "" && lineSplit[11] != "" && lineSplit[15] != "" && lineSplit[16] != "" && lineSplit[17] != "") {
+            runwaysOptimizedFile.appendText(line.replace("\"", "") + "\n")
+        }
+    }
+}
+
+fun optimizeTrafficFile() {
+    // Read data/traffic.csv, sum the traffic for each airport by year, and write to data/traffic_optimized.csv
+    // Data: YEAR;MONTH_NUM;MONTH_MON;FLT_DATE;APT_ICAO;APT_NAME;STATE_NAME;FLT_DEP_1;FLT_ARR_1;FLT_TOT_1;FLT_DEP_IFR_2;FLT_ARR_IFR_2;FLT_TOT_IFR_2;Pivot Label
+
+    val trafficFile = File(trafficFileName)
+    val trafficFileLines = trafficFile.readLines().drop(1) // To drop the header
+
+    val trafficOptimizedFile = File(trafficOptimizedFileName)
+
+    val airportTrafficByYear = mutableMapOf<String, MutableMap<Int, Int>>()
+
+    for(line in trafficFileLines){
+        val values = line.split(";")
+        val year = values[0].toInt()
+        val airportICAO = values[4]
+        val traffic = values[7].toInt()
+        val yearTraffic = airportTrafficByYear.getOrDefault(airportICAO, mutableMapOf())
+        yearTraffic[year] = yearTraffic.getOrDefault(year, 0) + traffic
+        airportTrafficByYear[airportICAO] = yearTraffic
+    }
+
+    trafficOptimizedFile.bufferedWriter().use { out ->
+        out.write("ICAO;YEAR;TRAFFIC\n")
+        for((airport, trafficByYear) in airportTrafficByYear){
+            for((year, traffic) in trafficByYear){
+                out.write("$airport;$year;$traffic\n")
             }
         }
     }
 }
 
 fun loadData(){
-    if(File("data/countries.csv").exists()){
-        val countriesFile = File("data/countries.csv")
+    if(File(countryFileName).exists()){
+        val countriesFile = File(countryFileName)
         val countriesFileLines = countriesFile.readLines().drop(1)
 
         for(line in countriesFileLines){
@@ -130,8 +152,8 @@ fun loadData(){
         }
     }
 
-    if(File("data/traffic_optimized.csv").exists()){
-        val trafficFile = File("data/traffic_optimized.csv")
+    if(File(trafficOptimizedFileName).exists()){
+        val trafficFile = File(trafficOptimizedFileName)
         val trafficFileLines = trafficFile.readLines().drop(1)
 
         for(line in trafficFileLines){
@@ -148,8 +170,8 @@ fun loadData(){
         throw Exception("data/traffic_optimized.csv does not exist.")
     }
 
-    if(File("data/airports_optimized.csv").exists() && File("data/runways_optimized.csv").exists()){
-        val airportsFile = File("data/airports_optimized.csv")
+    if(File(airportOptimizedFileName).exists() && File(runwayOptimizedFileName).exists()){
+        val airportsFile = File(airportOptimizedFileName)
         val airportsFileLines = airportsFile.readLines()
 
         for(line in airportsFileLines) {
@@ -191,7 +213,7 @@ fun loadData(){
             }
         }
 
-        val runwaysFile = File("data/runways_optimized.csv")
+        val runwaysFile = File(runwayOptimizedFileName)
         val runwaysFileLines = runwaysFile.readLines()
 
         for(line in runwaysFileLines) {
@@ -293,7 +315,7 @@ fun analyseData() {
         val nearestAirport = distances.toList().minBy { it.first }.second
 
         val distance = distances.toList().minBy { it.first }.first * 111.2
-        println("Nearest airport: ${nearestAirport.name} (${nearestAirport.icaoIdent}) - ${String.format("%.2f", distance)} km")
+        println("Nearest airport: ${nearestAirport.name} (${nearestAirport.icaoIdent}) - $distance km")
     }
 
     println()
@@ -327,7 +349,6 @@ fun customFlightAnalysis(){
                         }
                     }
                     groupFlightAnalysis(filename)
-                    println("The information have been saved to output/$filename.air")
                 }
             } else {
                 // File
@@ -342,9 +363,7 @@ fun customFlightAnalysis(){
                     flight.addInfo(lineSplit[0].toInt(), lineSplit[1], lineSplit[2], latitude, longitude, lineSplit[5].toDouble(), lineSplit[6].toDouble(), lineSplit[7].toDouble())
                 }
                 flights.add(flight)
-                val filename = flight.timestamp[0].toString() + "_" + flight.callsign[0]
-                flightAnalysis(flight, filename)
-                println("The information have been saved to output/$filename.air")
+                flightAnalysis(flight, flight.timestamp[0].toString() + "_" + flight.callsign[0])
             }
         }
     }
@@ -369,6 +388,7 @@ fun flightAnalysis(flight: Flight, fileName: String = ""){
     val takeoffLat = flight.latitude[flight.determineTakeoff()]
     val takeoffLon = flight.longitude[flight.determineTakeoff()]
 
+    // Determine nearest airport to takeoff location
     val distances = mutableMapOf<Double, Airport>()
     for (airport in airports.values) {
         val distance = kotlin.math.sqrt(
@@ -379,6 +399,7 @@ fun flightAnalysis(flight: Flight, fileName: String = ""){
 
     val nearestAirport = distances.toList().minBy { it.first }.second
 
+    // Nearest runway to takeoff location
     val distancesRunway = mutableMapOf<Double, Runway>()
     for (runway in nearestAirport.runways) {
         val distance = kotlin.math.sqrt(
@@ -395,6 +416,7 @@ fun flightAnalysis(flight: Flight, fileName: String = ""){
     outputFile.appendText("Takeoff runway: ${nearestRunway.heIdent}\n")
 
 
+    // Determine nearest airport to landing location
     val landingLat = flight.latitude[flight.determineLanding()]
     val landingLon = flight.longitude[flight.determineLanding()]
 
@@ -408,6 +430,7 @@ fun flightAnalysis(flight: Flight, fileName: String = ""){
 
     val nearestAirportLanding = distancesLanding.toList().minBy { it.first }.second
 
+    // Nearest runway to landing location
     val distancesRunwayLanding = mutableMapOf<Double, Runway>()
     for (runway in nearestAirportLanding.runways) {
         val distance = kotlin.math.sqrt(
@@ -434,39 +457,13 @@ fun groupFlightAnalysis(fileName: String){
 
     val outputFile = File("output/$fileName.air")
 
+    // Shortest flight in group by time
     val shortestFlightTime = flights.minBy { it.totalTime() }
     println("Shortest flight in group by Time: ${shortestFlightTime.utc[0]} (${shortestFlightTime.callsign[0]}) - ${String.format("%.2f", shortestFlightTime.totalTime())} minutes")
     outputFile.appendText("Shortest flight in group by Time: ${shortestFlightTime.utc[0]} (${shortestFlightTime.callsign[0]}) - ${String.format("%.2f", shortestFlightTime.totalTime())} minutes\n")
 
+    // Shortest flight in group by distance
     val shortestFlightDistance = flights.minBy { it.totalDistance() }
     println("Shortest flight in group by Distance: ${shortestFlightDistance.utc[0]} (${shortestFlightDistance.callsign[0]}) - ${String.format("%.2f", shortestFlightDistance.totalDistance())} km")
     outputFile.appendText("Shortest flight in group by Distance: ${shortestFlightDistance.utc[0]} (${shortestFlightDistance.callsign[0]}) - ${String.format("%.2f", shortestFlightDistance.totalDistance())} km\n")
-
-    val averageSpeedShortestFlight = shortestFlightDistance.totalDistance() / (shortestFlightDistance.totalTime() / 60.0)
-    println("Average flight speed of shortest flight: ${String.format("%.2f", averageSpeedShortestFlight)} km/h")
-    outputFile.appendText("Average flight speed of shortest flight: ${String.format("%.2f", averageSpeedShortestFlight)} km/h\n")
-
-    val longestFlightTime = flights.maxBy { it.totalTime() }
-    println("Longest flight in group by Time: ${longestFlightTime.utc[0]} (${longestFlightTime.callsign[0]}) - ${String.format("%.2f", longestFlightTime.totalTime())} minutes")
-    outputFile.appendText("Longest flight in group by Time: ${longestFlightTime.utc[0]} (${longestFlightTime.callsign[0]}) - ${String.format("%.2f", longestFlightTime.totalTime())} minutes\n")
-
-    val longestFlightDistance = flights.maxBy { it.totalDistance() }
-    println("Longest flight in group by Distance: ${longestFlightDistance.utc[0]} (${longestFlightDistance.callsign[0]}) - ${String.format("%.2f", longestFlightDistance.totalDistance())} km")
-    outputFile.appendText("Longest flight in group by Distance: ${longestFlightDistance.utc[0]} (${longestFlightDistance.callsign[0]}) - ${String.format("%.2f", longestFlightDistance.totalDistance())} km\n")
-
-    val averageSpeedLongestFlight = longestFlightDistance.totalDistance() / (longestFlightDistance.totalTime() / 60.0)
-    println("Average flight speed of longest flight: ${String.format("%.2f", averageSpeedLongestFlight)} km/h")
-    outputFile.appendText("Average flight speed of longest flight: ${String.format("%.2f", averageSpeedLongestFlight)} km/h\n")
-
-    val averageDistance = flights.map { it.totalDistance() }.average()
-    val averageTime = flights.map { it.totalTime() }.average()
-    val averageSpeed = averageDistance / (averageTime / 60.0)
-    println("Average flight distance of group: ${String.format("%.2f", averageDistance)} km")
-    outputFile.appendText("Average flight distance of group: ${String.format("%.2f", averageDistance)} km\n")
-    println("Average flight time of group: ${String.format("%.2f", averageTime)} minutes")
-    outputFile.appendText("Average flight time of group: ${String.format("%.2f", averageTime)} minutes\n")
-    println("Average flight speed of group: ${String.format("%.2f", averageSpeed)} km/h")
-    outputFile.appendText("Average flight speed of group: ${String.format("%.2f", averageSpeed)} km/h\n")
-
-    println("---")
 }
