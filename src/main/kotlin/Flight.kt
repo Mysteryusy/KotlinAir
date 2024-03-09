@@ -7,9 +7,9 @@ class Flight {
     var callsign: List<String> = listOf()
     var latitude: List<Double> = listOf()
     var longitude: List<Double> = listOf()
-    var altitude: List<Double> = listOf()
-    var speed: List<Double> = listOf()
-    var direction: List<Double> = listOf()
+    private var altitude: List<Double> = listOf()
+    private var speed: List<Double> = listOf()
+    private var direction: List<Double> = listOf()
 
     init {
         this.timestamp = listOf()

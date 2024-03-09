@@ -10,7 +10,7 @@ class Airport(// Data: ICAO Ident, type, name, latitude_deg, longitude_deg, elev
     var isoRegion: String,
     var municipality: String
 ) {
-    var elevationM: Double = 0.0
+    private var elevationM: Double = 0.0
     var runways: List<Runway> = listOf()
     var estimatedTraffic: MutableMap<Int, Int> = mutableMapOf()
 

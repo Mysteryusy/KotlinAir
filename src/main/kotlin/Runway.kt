@@ -13,9 +13,9 @@ class Runway(// Data: ICAO Ident, length_m, width_m, surface, le_ident, le_latit
     heElevationFt: Double
 ) {
     var lengthM: Int = 0
-    var widthM: Int = 0
-    var leElevationM: Double = 0.0
-    var heElevationM: Double = 0.0
+    private var widthM: Int = 0
+    private var leElevationM: Double = 0.0
+    private var heElevationM: Double = 0.0
 
     init {
         this.lengthM = (lengthFt/3.2808).toInt()
