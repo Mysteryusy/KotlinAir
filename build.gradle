@@ -16,6 +16,26 @@ dependencies {
 tasks.withType(KotlinCompile).configureEach {
     kotlinOptions.jvmTarget = "17"
 }
+
 kotlin {
     jvmToolchain(17)
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    tasks.register('copyData', Copy) {
+        from "data"
+        into "build/libs/data"
+    }
+
+    jar.dependsOn copyData
+
+    manifest {
+        attributes 'Main-Class': 'MainKt'
+    }
+
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
