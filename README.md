@@ -1,41 +1,46 @@
 # KotlinAir
-## Leírás
-A program több adatfájl alapján, ami reptereket és le/felszállópályákról tartalmaz adatot különböző megfigyeléseket tesz. Ezen kívül a program ezeket az adatfájlokat optimalizálja első betöltésnél és lementi külön olyan sorok nélkül, amik nem tartalmaznak használható adatot. Ezen kívül az adatok betöltése után megadható külön .csv fájl vagy mappa, ami több ilyen fájlt tartalmazhat. Ezek a fájlok egy repülőnek egy adott útjának az információit tartalmazza. Ezekből az adatokból a program megtudja állapítani, hogy honnan-hova repült a repülő, mennyi idő alatt, melyik felszállópályát használta, mekkora volt a legnagyobb sebessége, illetve, ha több ilyen utat is megadunk, ami ugyanazt az útvonalat repülte be akkor meg tudja állapítani, hogy melyik alkalommal repülték be „jobban” a távot (legyen ez gyorsaság, vagy üzemanyaghasználat hatékonyság.)
+## Description
+The program makes various observations based on several data files containing airport and runway data. In addition, the program optimizes these data files on first load and saves them separately without rows that do not contain useful data. In addition, after loading the data, a separate .csv file or folder can be specified, which can contain several such flight data files. These files contain the information for a particular route of a flight. From this data, the program can determine where the aircraft flew from and to, how long it took, which runway it used, what its maximum speed was, and, if you specify several of these trips that flew the same route, it can determine which time flew the distance "better" (whether it be speed or fuel efficiency.)  
 
-## Adatok
-A repülőterekről és felszállópályákról adatokat tartalmazó .csv-k a https://ourairports.com/data/ weboldalról vannak. Ezekben lévő adatok vesszővel vannak elválasztva.  
+## Running
+The program can be launched by compiling it in an IDE like IntelliJ. The program displays upon running a disclaimer which can be dismissed by pressing the <kbd>ENTER</kbd> key. The program then displays the following:
+- top 3 airports with the most runways
+- top 3 airports with the most estimated passenger traffic
+- top 3 countries with the most airports
+- longest and shortest runways  
 
-airports.csv: Repülőterekről tartalmaz információt, fontosabb oszlopok: ICAO azonosító (ident), méret és típus (type), név (name), elhelyezkedés (latitude_deg, longitude_deg, elevation_ft, continent, iso_country, iso_region, municipality).  
+After this you can enter a location (latitude, longitude) and the program will tell you the nearest airport and its distance. Then you can enter a file or directory containing flight data. The program will then make observations on these files and create a .air file for each of them. If you specify a folder, the program will also create a .air file for the folder, which will contain the average of the data in the folder. The outputs can be found in the `output/` directory.
 
-runways.csv: Felszállópályákról tartalmaz információt, fontosabb oszlopok: Reptér ICAO azonosítója (airport_ident), méret (length_ft, width_ft), leszállási kezdőpont/irány (le_ident, le_latitude_deg, le_longitude_deg, le_elevation_ft [le=landing end]), felszállási kezdőpont/irány (he_ident, he_latitude_deg, he_longitude_deg, he_elevation_ft [he=heading end]).  
-
-countries.csv: Országkód-országnév párosításokat tartalmaz.  
-
-traffic.csv: Repterekről tartalmaz forgalmi adatokat. (https://ansperformance.eu/data/)
-
-Egy adott repülésről információkat a https://www.flightradar24.com/ weboldalról lehet szerezni. Itt két formátumban lehet letölteni, ami kml/csv, de csak a csv-t használja a program. Sajnos alapból ez a része nem ingyenes a weboldalnak, illetve API se elérhető egyszerűen, de kérésre megadott repülésről információkat le tudok tölteni. (A programhoz elég sok járatról fogok információt csomagolni emiatt.) A csv felépítése az alábbi: UNIX időbélyeg (Timestamp), UTC idő (UTC), repülőgép hívójele (Callsign), pozíció (Position), magasság (Altitude), sebesség (Speed), irány (Direction).
-
-## Kinézet/Output
-A program alapvetően konzol ablakban fut le, itt vár a felhasználótól input és ír ki bármit, ami történik. Ezen kívül létrehoz futásidőben .csv fájlokat, amik az alap fájlok optimalizált verziói. Nem teljesen biztos még, de lehetséges, hogy több járat összehasonlításakor eredményként létre fog hozni egy .air fájlt amiben meg tudja tekinteni a felhasználó utólag is a megfigyeléseket.
-
-## Specifikáció óta történt változások
-
-A program megnyitásnál feldob egy Disclaimer-t ami az adatok felhasználási jogairól tájékoztatja a felhasználót. Ezt a felhasználó elolvashatja és egy ENTER megnyomásával továbbléphet. A jelenleg implementált funkciók: A top 3 repülőtér a legtöbb kifutópályával, top 3 repülőtér a legtöbb becsült utasforgalommal, top 3 ország a legtöbb repülőtérrel, leghosszabb és legrövidebb kifutópálya. A felhasználó ezután beírhat egy koordináta párt ami alapján a program megmondja a legközelebbi repülőteret és annak távolságát. Ezután megadhat a felhasználó vagy 1 fájlt vagy egy mappát ami tartalmazza a repülők útvonaláról adatokat tartalmazó fájlokat. Ezekről utána egyesével megfigyeléseket tesz a program mint például berepült táv, eltelt idő, felszállás helye (repülőtér, kifutópálya), leszállás helye. Amennyiben csoportot (mappa) ad meg a felhasználó a program meghatározza az adott csoportban a legrövidebb repülés távolságát és idejét, az átlag repülési sebességet. Ugyanezeket a leghosszabbra is meghatározza majd pedig egy átlagot is csinál az összes adatból. Mindkét esetnél (fájl/mappa) a program létrehoz ".air" végződésű fájlokat amiket a felhasználó később át tud nézni.
-
-## Példa inputok
-
-### Koordináta alapú keresés (Az adat a Liszt Ferenc Nemzetközi Repülőtér mellett található Cargodomb koordinátája)
+## Example usage
+### Coordinate based search (Example is for the coordinates of the Cargodomb next to Liszt Ferenc International Airport)
 **Input:**  
-Enter a location (latitude, longitude or leave empty to skip): **47.4461953, 19.2189375**
+Enter a location (latitude, longitude or leave empty to skip): `47.4461953, 19.2189375`
 
 **Output:**  
-Nearest airport: Budapest Liszt Ferenc International Airport (LHBP) - 5,03 km
+Nearest airport: Budapest Liszt Ferenc International Airport (LHBP) - 5,03 km  
 
-### Fájl megadása (A fájl a program mellé mellékelve van, de a program futtatásakor is megadható)
+### Specified file or directory (Example data is included in the repository, but can also be specified when running the program)
 
 **Input:**  
-Enter a file or directory containing flight data: **data/flights/wizzair/berbud/W62315_2bbce126.csv**
+Enter a file or directory containing flight data: `data/flights/wizzair/berbud/W62315_2bbce126.csv`  
 
-*vagy*  
+*or*  
 
-Enter a file or directory containing flight data: **data/flights/wizzair/berbud**
+Enter a file or directory containing flight data: `data/flights/wizzair/berbud`
+
+
+## Data
+The .csv-s containing data on airports and runways are from https://ourairports.com/data/. Data in these are separated by commas.  
+
+airports.csv: Contains information about airports, main columns: ICAO ident, size and type, name, location (latitude_deg, longitude_deg, elevation_ft, continent, iso_country, iso_region, municipality).
+
+runways.csv: Contains information on runways, main columns: airport ICAO identifier (airport_ident), size (length_ft, width_ft), landing start point/direction (le_ident, le_latitude_deg, le_longitude_deg, le_elevation_ft [le=landing end]), take-off start point/direction (he_ident, he_latitude_deg, he_longitude_deg, he_elevation_ft [he=heading end]).
+
+countries.csv: Contains pairings of countries' codes to their names.
+
+traffic.csv: Contains traffic data for airports (https://ansperformance.eu/data/).
+
+Information on a specific flight can be obtained from https://www.flightradar24.com/. Here you can download in two formats, which are kml/csv, but only csv is used by this program. The structure of the csv is as follows: UNIX timestamp, UTC time, aircraft callsign, position, altitude, speed, direction.
+
+## WIP
+- .exe and release
